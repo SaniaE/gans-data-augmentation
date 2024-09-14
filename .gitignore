@@ -1,3 +1,4 @@
 gans_data_aug/
 dataset/
 .ipynb_checkpoints/
+*.pt
