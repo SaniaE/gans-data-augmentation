@@ -2,7 +2,9 @@
 
 This repository explores various generative models, focusing on Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs), to generate realistic synthetic satellite imagery of petrol pumps. By leveraging different GAN architectures—such as Simple GAN, DCGAN, and WPGAN—along with a VAE model, the project explores the ability of generative models to expand both the diversity and volume of a dataset. These synthetic images are aimed at overcoming data scarcity, thereby improving the robustness and generalization of machine learning models trained on the augmented dataset.
 
-![dataset-sample](images/data_sample.png)
+<p align="center">
+  <img src="images/data_sample.png" alt="dataset-sample"/>
+</p>
 
 The experiments conducted examine different generative model architectures, loss functions, and optimizations, aiming to identify the best approaches for stabilizing training and producing high-quality synthetic samples.
 
