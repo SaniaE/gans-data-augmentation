@@ -1,6 +1,6 @@
 # Synthetic Data Generation for Petrol Pump Satellite Imagery with GANs and VAEs 
 
-This repository explores various generative models, focusing on Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs), to generate realistic synthetic satellite imagery of petrol pumps. By leveraging different GAN architectures—such as Simple GAN, DCGAN, and WPGAN—along with a VAE model, the project explores the ability of generative models to expand both the diversity and volume of a dataset. These synthetic images are aimed at overcoming data scarcity, thereby improving the robustness and generalization of machine learning models trained on the augmented dataset.
+This repository explores various generative models, focusing on Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs), to generate realistic synthetic satellite imagery of petrol pumps. By leveraging different GAN architectures, such as Simple GAN, DCGAN, and WPGAN, along with a VAE model, the project explores the ability of generative models to expand both the diversity and volume of a dataset. These synthetic images are aimed at overcoming data scarcity, thereby improving the robustness and generalization of machine learning models trained on the augmented dataset.
 
 <p align="center">
   <img src="images/data_sample.png" alt="dataset-sample"/>
@@ -28,6 +28,38 @@ The experiments conducted examine different generative model architectures, loss
 - **Checkpointing:** Save and load model checkpoints during training to ensure that the model can resume from the last state in case of interruptions.
 
 - **Visualizations:** Training progress visualizations for both the generator’s outputs and the loss curves.
+
+## Results 
+
+Expanding a scarce dataset of high-resolution satellite imagery comes with unique challenges: aerial data features complex multi-scale textures, high-frequency spatial details (like roads, rooftops, and parking bays), and severe vulnerability to mode collapse when trained on limited samples.
+
+<p align="center">
+  <table align="center" style="border-collapse: collapse; border: none;">
+    <tr>
+      <td align="center" style="border: none;"><img src="images/step_500.png" width="100%" alt="Step 500"/><br><sub><b>Step 500</b> (Early Collapse)</sub></td>
+      <td align="center" style="border: none;"><img src="images/step_2500.png" width="100%" alt="Step 2500"/><br><sub><b>Step 2500</b> (Structural Emergence)</sub></td>
+      <td align="center" style="border: none;"><img src="images/step_5500.png" width="100%" alt="Step 5500"/><br><sub><b>Step 5500</b> (Geometry Refinement)</sub></td>
+    </tr>
+    <tr>
+      <td align="center" style="border: none;"><img src="images/step_8500.png" width="100%" alt="Step 8500"/><br><sub><b>Step 8500</b> (Feature Stabilization)</sub></td>
+      <td align="center" style="border: none;"><img src="images/step_10500.png" width="100%" alt="Step 10500"/><br><sub><b>Step 10500</b> (High-Frequency Details)</sub></td>
+      <td align="center" style="border: none;"><img src="images/step_12500.png" width="100%" alt="Step 12500"/><br><sub><b>Step 12500</b> (Converged Fidelity)</sub></td>
+    </tr>
+  </table>
+</p>
+
+
+**1. Moving Beyond Standard GANs & DCGANs:** 
+
+- Early experiments with Simple GANs and standard DCGANs suffered from unstable training dynamics, vanishing gradients, and structural blurriness. Cross-entropy losses often led to the discriminator prematurely overpowering the generator, resulting in flat, unrecoverable color blobs.
+
+**2. The WGAN-GP Advantage:**
+
+- To establish stable convergence, the architecture transitioned to a Wasserstein GAN with Gradient Penalty (WGAN-GP). By replacing the traditional discriminator with a Critic that optimizes the Wasserstein distance (Earth Mover's Distance) alongside a gradient penalty constraint, the model gained a smooth, continuous loss landscape. This allowed the generator to steadily learn meaningful structural gradients rather than stalling out mid-training.
+
+**3. Stabilizing High-Resolution Training with DiffAugment:**
+
+- Even with WGAN-GP, training on limited high-resolution satellite tiles risked critic overfitting—where the model memorizes the small training set rather than learning true data distribution. Integrating applied transformations (color jitter, spatial translation, and cutout) directly to both real and fake images without disrupting backpropagation. This acted as a powerful regularizer, allowing the generator to achieve sharp, high-fidelity spatial coherence at $256 \times 256$ resolution without leaking artifacts into downstream tasks.
 
 ### Installation
 
