@@ -13,7 +13,7 @@ The experiments conducted examine different generative model architectures, loss
 
 - **DCGAN (Deep Convolutional GAN):** An extension of GANs utilizing convolutional layers for both the generator and discriminator. 
 
-- **WPGAN (Wasserstein GAN):** A variant of GANs designed to improve stability and convergence through the Wasserstein loss function with gradient penalty and the addition of a critic instead of a discriminator.
+- **WPGAN (Wasserstein GAN):** A variant of GANs designed to improve stability and convergence through the Wasserstein loss function with a gradient penalty and the addition of a critic instead of a discriminator.
 
 - **Variational Autoencoder (VAE):** A probabilistic generative model that learns a latent space for data generation, leveraging a combination of reconstruction loss and KL divergence to regularize the model.
 
@@ -59,7 +59,7 @@ Expanding a scarce dataset of high-resolution satellite imagery comes with uniqu
 
 **3. Stabilizing High-Resolution Training with DiffAugment:**
 
-- Even with WGAN-GP, training on limited high-resolution satellite tiles risked critic overfitting—where the model memorizes the small training set rather than learning true data distribution. Integrating applied transformations (color jitter, spatial translation, and cutout) directly to both real and fake images without disrupting backpropagation. This acted as a powerful regularizer, allowing the generator to achieve sharp, high-fidelity spatial coherence at $256 \times 256$ resolution without leaking artifacts into downstream tasks.
+- Even with WGAN-GP, training on limited high-resolution satellite tiles risked critic overfitting, where the model memorizes the small training set rather than learning the true data distribution. Integrating applied transformations (color jitter, spatial translation, and cutout) directly to both real and fake images without disrupting backpropagation. This acted as a powerful regularizer, allowing the generator to achieve sharp, high-fidelity spatial coherence at $256 \times 256$ resolution without leaking artifacts into downstream tasks.
 
 ### Installation
 
@@ -69,14 +69,14 @@ Expanding a scarce dataset of high-resolution satellite imagery comes with uniqu
     git clone https://github.com/SaniaE/gans-data-augmentation.git
     cd path/to/repo/clone
     ```
-2. Create and activate a new virtual enviornment
+2. Create and activate a new virtual environment
 
     ```bash
     python -m venv <environment_name>
     .\<environment_name>\Scripts\activate   # For Windows
     source <environment_name>/bin/activate  # For macOS/Linux
     ```
-3. Add virtual environment to the Python Kernel 
+3. Add the virtual environment to the Python Kernel 
 
     ```bash
     python -m pip install --upgrade pip 
